@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Fakultas & Program Studi | Institut Agama Islam Tasikmalaya</title>
+    <!-- Tailwind CSS + Font Awesome + Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        font-family: 'Inter', sans-serif;
+      }
+      .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s ease-out,
+          transform 0.8s ease-out;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .faculty-card {
+        transition: all 0.3s ease;
+      }
+      .faculty-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.15);
+      }
+      .mobile-menu-panel {
+        transition: transform 0.3s ease-in-out;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #10b981;
+        border-radius: 4px;
+      }
+      .prodi-list li {
+        margin-bottom: 0.5rem;
+        padding: 0.25rem 0;
+        border-bottom: 1px dashed #e5e7eb;
+      }
+      .prodi-list li:last-child {
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 overflow-x-hidden">
+    <!-- ======================= NAVBAR (Modern, Responsif) ======================= -->
+    <header class="sticky top-0 z-50 bg-white shadow-md border-b border-gray-100">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-3 md:py-4">
+          <a href="index.html" class="flex items-center gap-3 group flex-shrink-0">
+            <img
+              src="image/logo.jpg"
+              alt="Logo IAIT"
+              class="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shadow-md group-hover:scale-105 transition-transform duration-300"
+              onerror="this.src = 'https://placehold.co/60x60?text=IAIT'"
+            />
+            <div class="hidden sm:block">
+              <h1 class="font-bold text-sm md:text-lg text-emerald-700 leading-tight">Institut Agama Islam</h1>
+              <p class="text-xs md:text-sm text-gray-600 -mt-1">Tasikmalaya</p>
+            </div>
+            <div class="block sm:hidden">
+              <span class="font-bold text-xs text-emerald-700">IAIT</span>
+            </div>
+          </a>
+
+          <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 xl:space-x-4">
+            <a href="index.html" class="px-3 py-2 rounded-lg font-semibold text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200">Beranda</a>
+            <div class="relative group">
+              <button class="px-3 py-2 rounded-lg font-semibold text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 flex items-center gap-1">
+                Profil <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200 group-hover:rotate-180"></i>
+              </button>
+              <div class="absolute left-0 mt-1 w-52 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <a href="profil singkat.html" class="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-t-xl"><i class="fas fa-building w-5"></i> Profil Singkat</a>
+                <a href="visi&misi.html" class="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700"><i class="fas fa-bullseye w-5"></i> Visi & Misi</a>
+                <a href="fakultas.html" class="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-b-xl"><i class="fas fa-id-card w-5"></i>Fakultas</a>
+              </div>
+            </div>
+            <a href="berita.html" class="px-3 py-2 rounded-lg font-semibold text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200">Berita</a>
+            <a href="galeri.html" class="px-3 py-2 rounded-lg font-semibold text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200">Galeri</a>
+        
+          </nav>
+
+          <button id="mobileMenuBtn" class="md:hidden text-gray-700 text-2xl focus:outline-none p-2 rounded-lg hover:bg-gray-100">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenuPanel" class="md:hidden fixed inset-x-0 top-[68px] bg-white shadow-xl transform translate-y-[-120%] transition-transform duration-300 ease-in-out z-40 border-t border-gray-100 mobile-menu-panel">
+        <div class="flex flex-col p-5 space-y-3">
+          <a href="index.html" class="flex items-center gap-3 py-3 px-4 rounded-xl hover:bg-emerald-50 transition text-gray-800 font-medium"><i class="fas fa-home w-6 text-emerald-500"></i> Beranda</a>
+          <div class="relative">
+            <button id="mobileProfileToggle" class="flex justify-between items-center w-full py-3 px-4 rounded-xl hover:bg-emerald-50 transition text-gray-800 font-medium">
+              <span class="flex items-center gap-3"><i class="fas fa-user-graduate w-6 text-emerald-500"></i> Profil</span>
+              <i class="fas fa-chevron-down text-sm transition-transform duration-200"></i>
+            </button>
+            <div id="mobileSubmenu" class="hidden mt-2 ml-6 space-y-2 bg-gray-50 rounded-xl p-3">
+              <a href="profil singkat.html" class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-emerald-100 hover:text-emerald-700"><i class="fas fa-building w-5"></i> Profil Singkat</a>
+              <a href="visi&misi.html" class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-emerald-100 hover:text-emerald-700"><i class="fas fa-bullseye w-5"></i> Visi & Misi</a>
+              <a href="identitas.php" class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-emerald-100 hover:text-emerald-700"><i class="fas fa-id-card w-5"></i> Identitas Kampus</a>
+            </div>
+          </div>
+          <a href="berita.html" class="flex items-center gap-3 py-3 px-4 rounded-xl hover:bg-emerald-50 transition text-gray-800 font-medium"><i class="fas fa-newspaper w-6 text-emerald-500"></i> Berita</a>
+          <a href="galeri.html" class="flex items-center gap-3 py-3 px-4 rounded-xl hover:bg-emerald-50 transition text-gray-800 font-medium"><i class="fas fa-images w-6 text-emerald-500"></i> Galeri</a>
+          <a href="fakultas.html" class="flex items-center gap-3 py-3 px-4 rounded-xl bg-emerald-50 text-emerald-700 font-medium"><i class="fas fa-university w-6 text-emerald-500"></i> Fakultas</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ======================= HERO SECTION ======================= -->
+    <section class="relative bg-gradient-to-r from-emerald-900 to-emerald-700 text-white py-16 md:py-24">
+      <div class="absolute inset-0 bg-black/30"></div>
+      <div class="relative container mx-auto px-5 lg:px-8 text-center">
+        <div class="fade-up">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-lg">Fakultas & Program Studi</h1>
+          <p class="text-lg md:text-xl max-w-3xl mx-auto opacity-90">Informasi lengkap fakultas dan program studi unggulan di Institut Agama Islam Tasikmalaya</p>
+          <div class="w-24 h-1 bg-amber-400 mx-auto mt-6 rounded-full"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= KONTEN FAKULTAS ======================= -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-5 lg:px-8">
+        <div class="text-center mb-12 fade-up">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800">🎓 <span class="text-emerald-600">4 Fakultas & 1 Pascasarjana</span></h2>
+          <p class="text-gray-500 mt-2">Program studi berkualitas dengan kurikulum berbasis integrasi keilmuan dan nilai-nilai Islam</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- FAKULTAS TARBIYAH -->
+          <div class="faculty-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 fade-up">
+            <div class="bg-emerald-600 px-6 py-4">
+              <h3 class="text-xl font-bold text-white flex items-center gap-2"><i class="fas fa-chalkboard-user"></i> Fakultas Tarbiyah</h3>
+            </div>
+            <div class="p-6">
+              <p class="text-gray-600 text-sm mb-4">Fakultas Tarbiyah berfokus pada pengembangan pendidikan dan keguruan berbasis nilai-nilai Islam yang moderat dan inovatif.</p>
+              <ul class="prodi-list space-y-2">
+                <li class="flex justify-between items-center flex-wrap gap-2">
+                  <span class="text-gray-700"><i class="fas fa-graduation-cap text-emerald-500 mr-2"></i>S1 Pendidikan Agama Islam</span>
+                  <a href="detail-prodi.html?prodi=S1%20Pendidikan%20Agama%20Islam" class="text-sm bg-emerald-100 hover:bg-emerald-600 text-emerald-700 hover:text-white px-3 py-1 rounded-full transition"
+                    >Detail <i class="fas fa-arrow-right ml-1"></i
+                  ></a>
+                </li>
+                <li class="flex justify-between items-center flex-wrap gap-2">
+                  <span class="text-gray-700"><i class="fas fa-graduation-cap text-emerald-500 mr-2"></i>S1 Manajemen Pendidikan Islam</span>
+                  <a href="detail-prodi.html?prodi=S1%20Manajemen%20Pendidikan%20Islam" class="text-sm bg-emerald-100 hover:bg-emerald-600 text-emerald-700 hover:text-white px-3 py-1 rounded-full transition"
+                    >Detail <i class="fas fa-arrow-right ml-1"></i
+                  ></a>
+                </li>
+                <li class="flex justify-between items-center flex-wrap gap-2">
+                  <span class="text-gray-700"><i class="fas fa-graduation-cap text-emerald-500 mr-2"></i>S1 Pendidikan Guru Madrasah Ibtidaiyah</span>
+                  <a href="detail-prodi.html?prodi=S1%20PGMI" class="text-sm bg-emerald-100 hover:bg-emerald-600 text-emerald-700 hover:text-white px-3 py-1 rounded-full transition">Detail <i class="fas fa-arrow-right ml-1"></i></a>
+                </li>
+                <li class="flex justify-between items-center flex-wrap gap-2">
+                  <span class="text-gray-700"><i class="fas fa-graduation-cap text-emerald-500 mr-2"></i>S1 Pendidikan Islam Anak Usia Dini</span>
+                  <a href="detail-prodi.html?prodi=S1%20PIAUD" class="text-sm bg-emerald-100 hover:bg-emerald-600 text-emerald-700 hover:text-white px-3 py-1 rounded-full transition">Detail <i class="fas fa-arrow-right ml-1"></i></a>
+                </li>
+                <li class="flex justify-between items-center flex-wrap gap-2">
+                  <span class="text-gray-700"><i class="fas fa-graduation-cap text-emerald-500 mr-2"></i>S1 Bimbingan dan Konseling Pendidikan Islam</span>
+                  <a href="detail-prodi.html?prodi=S1%20BKPI" class="text-sm bg-emerald-100 hover:bg-emerald-600 text-emerald-700 hover:text-white px-3 py-1 rounded-full transition">Detail <i class="fas fa-arrow-right ml-1"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- FAKULTAS SYARIAH -->
+          <div class="faculty-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 fade-up">
+            <div class="bg-emerald-600 px-6 py-4">
+              <h3 class="text-xl font-bold text-white flex items-center gap-2"><i class="fas fa-gavel"></i> Fakultas Syariah</h3>
+            </div>
+            <div class="p-6">
+              <p class="text-gray-600 text-sm mb-4">Fakultas Syariah mengkaji hukum Islam dan perundang-undangan untuk mencetak ahli hukum yang berkeadilan.</p>
+              <ul class="prodi-list space-y-2">
+                <li class="flex justify-between items-center flex-wrap gap-2">
+                  <span class="text-gray-700"><i class="fas fa-graduation-cap text-emerald-500 mr-2"></i>S1 Hukum Tata Negara</span>
+                  <a href="detail-prodi.html?prodi=S1%20Hukum%20Tata%20Negara" class="text-sm bg-emerald-100 hover:bg-emerald-600 text-emerald-700 hover:text-white px-3 py-1 rounded-full transition"
+                    >Detail <i class="fas fa-arrow-right ml-1"></i
+                  ></a>
+                </li>
+                <li class="flex justify-between items-center flex-wrap gap-2">
+                  <span class="text-gray-700"><i class="fas fa-graduation-cap text-emerald-500 mr-2"></i>S1 Hukum Keluarga Islam</span>
+                  <a href="detail-prodi.html?prodi=S1%20Hukum%20Keluarga%20Islam" class="text-sm bg-emerald-100 hover:bg-emerald-600 text-emerald-700 hover:text-white px-3 py-1 rounded-full transition"
+                    >Detail <i class="fas fa-arrow-right ml-1"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- FAKULTAS EKONOMI DAN BISNIS ISLAM -->
+          <div class="faculty-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 fade-up">
+            <div class="bg-emerald-600 px-6 py-4">
+              <h3 class="text-xl font-bold text-white flex items-center gap-2"><i class="fas fa-chart-line"></i> Fakultas Ekonomi dan Bisnis Islam</h3>
+            </div>
+            <div class="p-6">
+              <p class="text-gray-600 text-sm mb-4">Menyiapkan lulusan yang ahli dalam ekonomi syariah, keuangan, dan bisnis berbasis prinsip Islam.</p>
+              <ul class="prodi-list space-y-2">
+                <li class="flex justify-between items-center flex-wrap gap-2">
+                  <span class="text-gray-700"><i class="fas fa-graduation-cap text-emerald-500 mr-2"></i>S1 Ekonomi Syariah</span>
+                  <a href="detail-prodi.html?prodi=S1%20Ekonomi%20Syariah" class="text-sm bg-emerald-100 hover:bg-emerald-600 text-emerald-700 hover:text-white px-3 py-1 rounded-full transition"
+                    >Detail <i class="fas fa-arrow-right ml-1"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- PASCASARJANA -->
+          <div class="faculty-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 fade-up">
+            <div class="bg-emerald-600 px-6 py-4">
+              <h3 class="text-xl font-bold text-white flex items-center gap-2"><i class="fas fa-user-graduate"></i> Pascasarjana</h3>
+            </div>
+            <div class="p-6">
+              <p class="text-gray-600 text-sm mb-4">Program magister untuk pengembangan keilmuan dan riset pendidikan Islam yang unggul.</p>
+              <ul class="prodi-list space-y-2">
+                <li class="flex justify-between items-center flex-wrap gap-2">
+                  <span class="text-gray-700"><i class="fas fa-graduation-cap text-emerald-500 mr-2"></i>S2 Pendidikan Agama Islam</span>
+                  <a href="detail-prodi.html?prodi=S2%20Pendidikan%20Agama%20Islam" class="text-sm bg-emerald-100 hover:bg-emerald-600 text-emerald-700 hover:text-white px-3 py-1 rounded-full transition"
+                    >Detail <i class="fas fa-arrow-right ml-1"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Informasi tambahan -->
+        <div class="mt-12 bg-emerald-50 rounded-2xl p-6 md:p-8 text-center fade-up">
+          <i class="fas fa-info-circle text-emerald-600 text-3xl mb-3 block"></i>
+          <h3 class="text-lg font-semibold text-gray-800">Informasi Akademik</h3>
+          <p class="text-gray-600 mt-2 max-w-2xl mx-auto">
+            Seluruh program studi telah terakreditasi dan dikelola oleh dosen profesional. Klik tombol <span class="font-medium text-emerald-700">"Detail"</span> pada setiap prodi untuk melihat informasi lebih lanjut seperti kurikulum,
+            prospek karir, dan biaya pendidikan.
+          </p>
+        </div>
+
+        <!-- Tombol kembali ke beranda -->
+        <div class="text-center mt-10 fade-up">
+          <a href="index.html" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-6 rounded-full transition shadow-md"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= FOOTER DENGAN BACKGROUND GAMBAR + OVERLAY HITAM PEKAT (85%) ======================= -->
+    <footer class="relative pt-12 md:pt-16 pb-6 text-white overflow-hidden">
+      <!-- Background Image dengan overlay hitam lebih gelap -->
+      <div class="absolute inset-0 z-0">
+        <img src="image/poto1.jpg" alt="Background Kampus" class="w-full h-full object-cover" onerror="this.src = 'https://placehold.co/1600x600?text=IAIT+Campus'" />
+        <div class="absolute inset-0 bg-black/85"></div>
+        <!-- overlay hitam 85% - lebih gelap dan transparan -->
+      </div>
+
+      <!-- Konten Footer (di atas overlay) -->
+      <div class="relative z-10 container mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+          <!-- Tentang & Alamat -->
+          <div class="space-y-3">
+            <div class="flex items-center gap-2">
+              <!-- <img src="image/logo.jpg" alt="Logo" class="w-10 h-10 rounded-full object-cover border-2 border-white/30" onerror="this.src = 'https://placehold.co/40x40'" /> -->
+              <h3 class="font-bold text-white text-lg drop-shadow">IAI Tasikmalaya</h3>
+            </div>
+            <p class="text-white/80 text-sm leading-relaxed">Institut Agama Islam Tasikmalaya (IAIT) adalah perguruan tinggi Islam yang unggul dalam pendidikan, penelitian, dan pengabdian masyarakat.</p>
+            <div class="flex items-start gap-2 text-white/80 text-sm">
+              <i class="fas fa-map-marker-alt text-white mt-1"></i>
+              <span>Jl. Noengnoeng Tisnasaputra, No.16, Kahuripan, Kec Tawang, Kab Tasikmalaya, Jawa Barat 46115</span>
+            </div>
+            <div class="flex items-center gap-2 text-white/80 text-sm">
+              <i class="fas fa-phone-alt text-white"></i>
+              <span>(0265) 31501</span>
+            </div>
+            <div class="flex items-center gap-2 text-white/80 text-sm">
+              <i class="fas fa-envelope text-white"></i>
+              <span>info@iaitasik.ac.id</span>
+            </div>
+          </div>
+
+          <!-- Tautan Cepat -->
+          <div>
+            <h4 class="font-bold text-white text-lg mb-4 border-b-2 border-yellow-500 inline-block pb-1">Tautan Cepat</h4>
+            <ul class="space-y-2 mt-2">
+              <li>
+                <a href="index.html" class="text-white/80 hover:text-yellow-600 transition flex items-center gap-2 text-sm"><i class="fas fa-chevron-right text-white text-xs"></i> Beranda</a>
+              </li>
+              <li>
+                <a href="profil singkat.html" class="text-white/80 hover:text-yellow-600 transition flex items-center gap-2 text-sm"><i class="fas fa-chevron-right text-white text-xs"></i> Profil Singkat</a>
+              </li>
+              <li>
+                <a href="visi&misi.html" class="text-white/80 hover:text-yellow-600 transition flex items-center gap-2 text-sm"><i class="fas fa-chevron-right text-white text-xs"></i> Visi & Misi</a>
+              </li>
+              <li>
+                <a href="identitas.php" class="text-white/80 hover:text-yellow-600 transition flex items-center gap-2 text-sm"><i class="fas fa-chevron-right text-white text-xs"></i> Identitas Kampus</a>
+              </li>
+              <li>
+                <a href="berita.html" class="text-white/80 hover:text-yellow-600 transition flex items-center gap-2 text-sm"><i class="fas fa-chevron-right text-white text-xs"></i> Berita</a>
+              </li>
+              <li>
+                <a href="galeri.html" class="text-white/80 hover:text-yellow-600 transition flex items-center gap-2 text-sm"><i class="fas fa-chevron-right text-white text-xs"></i> Galeri</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Peta Lokasi -->
+          <div>
+            <h4 class="font-bold text-white text-lg mb-4 border-b-2 border-yellow-500 inline-block pb-1">Lokasi Kami</h4>
+            <div class="rounded-xl overflow-hidden shadow-lg h-36 w-full border border-white/20 mt-2">
+              <iframe
+                class="w-full h-full"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.8462772343557!2d108.2125093147725!3d-7.325310594687558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f59c6e9b5b6b9%3A0x3a8b8b4b1c6e2f4b!2sInstitut%20Agama%20Islam%20Tasikmalaya!5e0!3m2!1sid!2sid!4v1612334567890!5m2!1sid!2sid"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+              ></iframe>
+            </div>
+            <a href="https://maps.app.goo.gl/dNLkhCuSNZS16qtz5" target="_blank" class="inline-flex items-center gap-1 mt-3 text-white hover:text-yellow-600 text-sm font-medium"
+              ><i class="fas fa-external-link-alt"></i> Buka di Google Maps</a
+            >
+          </div>
+
+          <!-- Sosial Media & Eksternal -->
+          <div>
+            <h4 class="font-bold text-white text-lg mb-4 border-b-2 border-yellow-500 inline-block pb-1">Ikuti Kami</h4>
+            <div class="flex space-x-3 mt-2">
+              <a href="https://www.facebook.com/iaitasik" target="_blank" class="bg-white/10 hover:bg-blue-600 text-white p-3 rounded-full transition-all duration-300 w-10 h-10 flex items-center justify-center backdrop-blur-sm"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/iaitasik/"
+                target="_blank"
+                class="bg-white/10 hover:bg-gradient-to-r hover:from-pink-500 hover:via-red-500 hover:to-yellow-500 text-white p-3 rounded-full transition-all duration-300 w-10 h-10 flex items-center justify-center backdrop-blur-sm"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+
+              <a href="https://twitter.com/" target="_blank" class="bg-white/10 hover:bg-[#1DA1F2] text-white p-3 rounded-full transition-all duration-300 w-10 h-10 flex items-center justify-center backdrop-blur-sm">
+                <i class="fab fa-twitter"></i>
+              </a>
+
+              <a href="https://www.youtube.com/@iaitasik" target="_blank" class="bg-white/10 hover:bg-red-600 text-white p-3 rounded-full transition-all duration-300 w-10 h-10 flex items-center justify-center backdrop-blur-sm">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+            <div class="mt-6">
+              <h4 class="font-bold text-white text-md mb-2">Tautan Eksternal</h4>
+              <ul class="space-y-1 text-sm">
+                <li>
+                  <a href="https://iaitasik.ac.id" target="_blank" class="text-white/80 hover:text-yellow-600 transition flex items-center gap-2"><i class="fas fa-globe text-white w-4"></i> Website Resmi IAIT</a>
+                </li>
+                <li>
+                  <a href="https://www.kemdikbud.go.id" target="_blank" class="text-white/80 hover:text-yellow-600 transition flex items-center gap-2"><i class="fas fa-graduation-cap text-white w-4"></i> Kemdikbud RI</a>
+                </li>
+                <li>
+                  <a href="https://disdik.jabarprov.go.id" target="_blank" class="text-white/80 hover:text-yellow-600 transition flex items-center gap-2"><i class="fas fa-school text-white w-4"></i> Disdik Jawa Barat</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <hr class="border-white/20 my-8 md:my-10" />
+
+        <div class="flex flex-col md:flex-row justify-between items-center text-center text-white text-sm gap-3">
+          <p>&copy; 2026 Institut Agama Islam Tasikmalaya | All Rights Reserved.</p>
+          <p class="text-white font-medium">Developed by <span class="font-bold">Serli & Salsabila</span></p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ======================= JAVASCRIPT ======================= -->
+    <script>
+      (function () {
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobilePanel = document.getElementById('mobileMenuPanel');
+        const profileToggle = document.getElementById('mobileProfileToggle');
+        const mobileSubmenu = document.getElementById('mobileSubmenu');
+        let mobileOpen = false;
+        if (mobileBtn && mobilePanel) {
+          mobileBtn.addEventListener('click', () => {
+            mobileOpen = !mobileOpen;
+            mobilePanel.style.transform = mobileOpen ? 'translateY(0)' : 'translateY(-120%)';
+            mobileBtn.innerHTML = mobileOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+          });
+        }
+        if (profileToggle && mobileSubmenu) {
+          profileToggle.addEventListener('click', e => {
+            e.preventDefault();
+            mobileSubmenu.classList.toggle('hidden');
+            const icon = profileToggle.querySelector('i:last-child');
+            if (icon) icon.classList.toggle('rotate-180');
+          });
+        }
+        document.querySelectorAll('#mobileMenuPanel a').forEach(link => {
+          link.addEventListener('click', () => {
+            if (mobilePanel && mobileBtn) {
+              mobilePanel.style.transform = 'translateY(-120%)';
+              mobileOpen = false;
+              mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+
+        // Scroll reveal
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver(
+          entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 },
+        );
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Fallback gambar error
+        document.querySelectorAll('img').forEach(img => {
+          img.addEventListener('error', function () {
+            if (!this.src.includes('placehold')) {
+              this.src = 'https://placehold.co/800x500?text=Gambar+Tidak+Tersedia';
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
